@@ -36,12 +36,15 @@ def input():
                 sequence_lines = sequence.splitlines()
                 for i in range(len(sequence_lines)):
                     for j in range(i+1,len(sequence_lines)):
+			if sequence_lines[j].find('B')!=-1 or sequence_lines[j].find('J')!=-1 or sequence_lines[j].find('O')!=-1 or sequence_lines[j].find('U')!=-1 or sequence_lines[j].find('X')!=-1 or sequence_lines[j].find('Z')!=-1:
+                            print("****")
+                            return render_template('input.html')
                         if len(sequence_lines[i])!=len(sequence_lines[j]):
                             return render_template('input.html')
                 sequence_html = '<p style="margin: 0%;">' + '</p><p style="margin: 0%;">'.join(sequence_lines) + '</p>'
                 print(sequence_html)
-                test(sequence_lines)
-                return render_template('result.html', sequence=sequence_html)
+                img=test(sequence_lines)
+                return render_template('result.html', sequence=sequence_html,img=img)
                 #time.sleep(0.5)
             else:
                 print(2)
@@ -97,7 +100,17 @@ def test(sequence):
     # Save the logo as an image
     output_path = 'static/dist/assets/out.png'
     plt.savefig(output_path, dpi=300)
-    #plt.close(logo_fig)
+    #plt.close(logo_fig)# Save the logo as an image
+    img_buffer = io.BytesIO()
+    plt.savefig(img_buffer, format='png', dpi=300)
+    plt.close(logo_fig)
+    img_buffer.seek(0)
+
+    # Convert the image to a base64-encoded string
+    img_str = base64.b64encode(img_buffer.getvalue()).decode()
+    img_html = f'<img style="max-width: 100%; height: auto;" class="col-md-8" src="data:image/png;base64,{img_str}"  alt="Example">'
+
+    return img_html
 
 
 @app.route('/contact', methods=["POST","GET"])
