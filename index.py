@@ -98,12 +98,12 @@ def test(sequence):
     # Show the logo with the custom color scheme and y-axis label
     lm.Logo(ww_counts_df, ax=logo_ax, color_scheme=color_scheme)
     # Save the logo as an image
-    output_path = 'static/dist/assets/out.png'
+    #output_path = 'static/dist/assets/out.png'
     #plt.savefig(output_path, dpi=300)
     #plt.close(logo_fig)# Save the logo as an image
     img_buffer = io.BytesIO()
     plt.savefig(img_buffer, format='png', dpi=300)
-    plt.close(logo_fig)
+    #plt.close(logo_fig)
     img_buffer.seek(0)
 
     # Convert the image to a base64-encoded string
