@@ -36,7 +36,7 @@ def input():
                 sequence_lines = sequence.splitlines()
                 for i in range(len(sequence_lines)):
                     for j in range(i+1,len(sequence_lines)):
-			if sequence_lines[j].find('B')!=-1 or sequence_lines[j].find('J')!=-1 or sequence_lines[j].find('O')!=-1 or sequence_lines[j].find('U')!=-1 or sequence_lines[j].find('X')!=-1 or sequence_lines[j].find('Z')!=-1:
+                        if sequence_lines[j].find('B')!=-1 or sequence_lines[j].find('J')!=-1 or sequence_lines[j].find('O')!=-1 or sequence_lines[j].find('U')!=-1 or sequence_lines[j].find('X')!=-1 or sequence_lines[j].find('Z')!=-1:
                             print("****")
                             return render_template('input.html')
                         if len(sequence_lines[i])!=len(sequence_lines[j]):
@@ -59,6 +59,8 @@ def success():
 import pandas as pd
 import matplotlib.pyplot as plt
 import logomaker as lm
+import io
+import base64
 def test(sequence):
     plt.ion()
     plt.ioff()
@@ -111,6 +113,9 @@ def test(sequence):
     img_html = f'<img style="max-width: 100%; height: auto;" class="col-md-8" src="data:image/png;base64,{img_str}"  alt="Example">'
 
     return img_html
+    #output_path = 'static/dist/assets/out.png'
+    #plt.savefig(output_path, dpi=300)
+    #plt.close(logo_fig)
 
 
 @app.route('/contact', methods=["POST","GET"])
